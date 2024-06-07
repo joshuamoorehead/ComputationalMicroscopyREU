@@ -29,7 +29,11 @@ Welcome to the Computational Microscopy project! This repository contains two ma
 3. **Example usage:**
     ```matlab
     % Open MATLAB and run the main script to generate STM images
+<<<<<<< HEAD
     run('Atom5.m')
+=======
+    run('DataSim.m')
+>>>>>>> b84fa47 (Updated README)
     ```
 
 ### Deep Neural Networks (DNNs)
@@ -47,7 +51,13 @@ Welcome to the Computational Microscopy project! This repository contains two ma
 3. **Train the autoencoder:**
     - Use the provided scripts to load the simulated STM images and train the autoencoder.
 
+<<<<<<< HEAD
 
+=======
+4. **Example usage:**
+    ```sh
+    python train_autoencoder.py
+>>>>>>> b84fa47 (Updated README)
     ```
 
 ## Directory Overview
@@ -62,7 +72,13 @@ Welcome to the Computational Microscopy project! This repository contains two ma
 
 ### DNNs
 
+<<<<<<< HEAD
 
+=======
+- `train_autoencoder.py`: Python script to train the autoencoder on the simulated STM images.
+- `autoencoder_model.py`: Defines the autoencoder architecture.
+- `data_loader.py`: Loads and preprocesses the STM images for training.
+>>>>>>> b84fa47 (Updated README)
 
 ## License
 
