@@ -1,0 +1,17 @@
+Autoencoder questions
+
+1. "Angle" keeps being mentioned. Preserve "angle" information. Is this technically the angle of the STM tip on the material? Are we preserving this angle via a special technique or just by training the AE on loads of patches?
+2."Each region is parameterized by angle" what did they mean? You mentioned there being 4 parameters currently
+3. How do we ensure translation invariance for feaures happens? is that inherent to the AE training?
+4. Proving feature vector generation is good by "visualizing" the latent space... is that the only way? How did he say to achieve that?
+5. You mentioned the potential of changing the way the AE is trained, what would you think this to be? The dimensionality of the feature vector changed too?
+6. The unrolled network... is it going to be used for texture segmentation or classification of chemical information?
+7. Current training on ~200 images. Each image (with a pixel step of 1) has ~50,000 patches. Should I increase step size?
+
+Image generation questions
+
+1. They want to increase patch size for more complex images. Should we train for this?
+2. Should we start to put defects (vacancy island, SAM disorders, etc) in the images?
+3. "Zoology of the interface"?
+4. Should we start training on different scales/zoom?
+
