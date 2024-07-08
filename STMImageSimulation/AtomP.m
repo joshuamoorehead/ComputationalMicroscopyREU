@@ -96,12 +96,12 @@ switch type
         u1=c3*projX+s3*projY;
         v1=-s3*projX+c3*projY;
 
-case 4
+    case 4
         co = cos(a0(1) * pi / 3);
         si = sin(a0(1) * pi / 3);
         ta = tan(a0(2) * pi / 6);  
         % Parameters
-        a = 0.8;  % Base length of the triangle
+        a = 0.7;  % Base length of the triangle
         h = a / 2;  % Height of the triangle
 
         % Define the number of points in each dimension
@@ -127,8 +127,6 @@ case 4
                 y(vertex_index) = y_offset;
                 vertex_index = vertex_index + 1;
             end
-        end   
-
         % Projection of the hexagonal grid
         z = ta * (co * x + si * y);
         %0 = si*x + ta*si*y - z rewritten z plane
@@ -155,5 +153,8 @@ case 4
       s3=sin(a0(3)*pi);
       u1=c3*projX+s3*projY;
       v1=-s3*projX+c3*projY;
+        end
+    case 5 
+        
 end
 return

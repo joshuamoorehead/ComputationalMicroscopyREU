@@ -4,13 +4,13 @@ res=256;
 n=res+sp*4; 
 k=n+2*sp;
 dd=2;
-cc=0.15;      %Gaussian Parameter (Default 0.15)
+cc=0.37;      %Gaussian Parameter (Default 0.15)
 sz=sp^2/64/type;
-brt1b=0.75;    %threshhold value of curent background for including an atom
+brt1b=0.7;    %threshhold value of curent background for including an atom
 
 % colormap for the noise images
- cmg=ones(256,3); cmg(1:128,1)=[0:127]/128; cmg(1:128,2)=[0:127]/128;
- cmg(129:256,2)=[127:-1:0]/128; cmg(129:256,3)=[127:-1:0]/128;
+% cmg=ones(256,3); cmg(1:128,1)=[0:127]/128; cmg(1:128,2)=[0:127]/128;
+% cmg(129:256,2)=[127:-1:0]/128; cmg(129:256,3)=[127:-1:0]/128;
 
 % NOISE PARAMETERS
 atom_vary=0.2/15; %Perturbation amount to atom position (0-1); 0 to turn off
@@ -39,7 +39,13 @@ end
             zx=([-sp:sp-1]+sp*u1(l)-ju1(l))'*ones(1,sp*2);
             zy=ones(sp*2,1)*([-sp:sp-1]+sp*v1(l)-jv1(l));
             R1=4*((dd-d(l))/2)^1.5*exp(-cc*(zx.^2+zy.^2)/((dd-d(l))^0.5)/sz);
-            PP1=P1(ku+[0:sp*2-1],kv+[0:sp*2-1]);
+            if ku > 0 && kv > 0 && ku + sp*2 - 1 <= k && kv + sp*2 - 1 <= k
+             PP1 = P1(ku+[0:sp*2-1], kv+[0:sp*2-1]);
+          % Proceed with other operations
+                else
+           warning('Calculated indices are out of bounds for P1. ku=%d, kv=%d, k=%d', ku, kv, k);
+             end
+           % PP1=P1(ku+[0:sp*2-1],kv+[0:sp*2-1]);
 
             %brightness/position variations
             zx=([-sp:sp-1]+sp*u(l)-ju1(l))'*ones(1,sp*2);
@@ -64,7 +70,7 @@ end
 %        nam=[fname,num2str(num),'clear.png'];
 %        imwrite(aa,nam)
     
-        figure(11); imagesc(P0F); colormap(gray); axis off; colorbar
+        %figure(11); imagesc(P0F); colormap(gray); axis off; colorbar
         % nam=[fname,num2str(num),'clear.png'];
         % saveas(gcf,nam)
      P7=P0F;
@@ -75,7 +81,7 @@ end
     %    saveas(gcf,nam)
      
      P7=P7-P0F;
-     figure(17); imagesc(P7); colormap(cmg); axis off;  clim([-1 1])  %image showing brightness/position variations 
+     %figure(17); imagesc(P7); colormap(cmg); axis off;  clim([-1 1])  %image showing brightness/position variations 
     
         xx=ones(2*k+1,1)*[-k/2:0.5:k/2]; 
         yy=[-k/2:0.5:k/2]'*ones(1,2*k+1); 
@@ -88,21 +94,21 @@ end
         
         PF=GaussN; 
         P0F=PF([k/2-res/2:k/2+res/2],[k/2-res/2:k/2+res/2]);
-    figure(14); imagesc(P0F); colormap(cmg); axis off;  clim([-1 1])  %image showing Gaussian noise component 
+    %figure(14); imagesc(P0F); colormap(cmg); axis off;  clim([-1 1])  %image showing Gaussian noise component 
         PF=PoissonN; 
         P0F=PF([k/2-res/2:k/2+res/2],[k/2-res/2:k/2+res/2]);
-    figure(15); imagesc(P0F); colormap(cmg); axis off;  clim([-1 1])  %image showing Poisson noise component 
+   % figure(15); imagesc(P0F); colormap(cmg); axis off;  clim([-1 1])  %image showing Poisson noise component 
         PF=striN; 
         P0F=PF([k/2-res/2:k/2+res/2],[k/2-res/2:k/2+res/2]);
-    figure(16); imagesc(P0F); colormap(cmg); axis off;  clim([-1 1])  %image showing striation noise component 
+    %figure(16); imagesc(P0F); colormap(cmg); axis off;  clim([-1 1])  %image showing striation noise component 
         PF=GaussN+PoissonN+striN;%                                    % Image of all noises added
         P0F=PF([k/2-res/2:k/2+res/2],[k/2-res/2:k/2+res/2]);
-    figure(18); imagesc(P0F+P7); colormap(cmg); axis off; colorbar; clim([-1 1]) %clim([-1.1 1.1])  %image showing striation noise component 
+    %figure(18); imagesc(P0F+P7); colormap(cmg); axis off; colorbar; clim([-1 1]) %clim([-1.1 1.1])  %image showing striation noise component 
 
 
         PF=P+GaussN+PoissonN+striN;%                                  % Image with all added noises
         P0F=PF([k/2-res/2:k/2+res/2],[k/2-res/2:k/2+res/2]);
-     figure(13); imagesc(P0F); colormap(gray); axis off; colorbar; clim([0 aamax])
+     figure(); imagesc(P0F); colormap(gray); axis off; colorbar; clim([0 aamax])
         aamin=min(P0F(:)); aamax=max(P0F(:)); 
         aa=(P0F-aamin)/(aamax-aamin);
 %        nam=[fname,num2str(num),'noise.png'];

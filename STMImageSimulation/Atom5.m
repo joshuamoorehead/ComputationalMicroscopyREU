@@ -1,7 +1,7 @@
 res=256;           % size of the image (default 256 x 256)
-type = 4;         % types - 1: simple cubic , 2: body centered cubic , 3: face centered cubic  , 4: hexagonal 
-%spread = 9+type^2; % need a new formula
-spread = 14;
+type = 2;         % types - 1: simple cubic , 2: body centered cubic , 3: face centered cubic  , 4: hexagonal 
+spread = 9+type^2; % need a new formula
+%spread = 14;
 a1=rand(1,3); a2=rand(1,3);         % coefficients for the patterns. Angles for projection
 %a1 = [.0617 , .6401 , .9943];
 %a2 = [.0617 , .6401 , .9943];
@@ -11,7 +11,7 @@ a1=rand(1,3); a2=rand(1,3);         % coefficients for the patterns. Angles for 
 [XcoordsPattern2,YcoordsPattern2,d2] = AtomP(a2,type,spread); % second pattern
 
 %create partition
-n=res+4*spread; m=n-1; s=floor(n/2); boundrywidth=3; 
+n=res+4*spread; m=n-1; s=floor(n/2); boundrywidth=3; % 3 for type 1-3 , lower for case 4 
 c=2*rand(10,1)-1;% coefficients for the partition
 
 %pattern map (1 for pattern 1, 0 for boundry line, -1 for pattern 2)
