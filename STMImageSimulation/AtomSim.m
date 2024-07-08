@@ -1,7 +1,7 @@
 % USER INPUTS
-type = 4;  % choose type 1 - 5 , 1 = simple cubic , 2 = body centered cubic , 3 = face centered cubic , 4 = hexagonal , 5 = ???
+type = 3;  % choose type 1 - 5 , 1 = simple cubic , 2 = body centered cubic , 3 = face centered cubic , 4 = hexagonal , 5 = ???
 numberofimages = 1;  
-patterns = 2;  % 1 for autoencoder training, 2 for training segmentation routines
+patterns = 1;  % 1 for autoencoder training, 2 for training segmentation routines
 
 % PROGRAM 9+type^2
 res = 256;
@@ -13,7 +13,7 @@ switch type
     case 3 
         spread = 18;
     case 4 
-        spread = 13;
+        spread = 14;
     case 5 
         spread = 0;
 end
@@ -23,8 +23,8 @@ switch patterns
         for i = 1:numberofimages
         a1=rand(1,3);
         [Xcoords,Ycoords,d1] = AtomP(a1,type,spread);
-        n=res+4*spread; s = floor(n/2);
-        patternMap = ones(res+51);
+        n=res+4*spread; s = floor(n/2); 
+        [patternMap] = ones(n-1);
         [u,v,d]=SetPoints(Xcoords,Ycoords,d1,spread,s,patternMap);
         Xcoords = u;
         Ycoords = v;
