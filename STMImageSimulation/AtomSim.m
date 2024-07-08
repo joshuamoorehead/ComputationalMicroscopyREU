@@ -1,7 +1,7 @@
 % USER INPUTS
 type = 4;  % choose type 1 - 5 , 1 = simple cubic , 2 = body centered cubic , 3 = face centered cubic , 4 = hexagonal , 5 = ???
-numberofimages = 3;  
-patterns = 1;  % 1 for autoencoder training, 2 for training segmentation routines
+numberofimages = 1;  
+patterns = 2;  % 1 for autoencoder training, 2 for training segmentation routines
 
 % PROGRAM 9+type^2
 res = 256;
@@ -13,7 +13,7 @@ switch type
     case 3 
         spread = 18;
     case 4 
-        spread = 14;
+        spread = 13;
     case 5 
         spread = 0;
 end
@@ -29,7 +29,7 @@ switch patterns
         Xcoords = u;
         Ycoords = v;
         d1 = d;
-        [aa]=DataSim(s,Xcoords,Ycoords,d1,spread,type); %work in progress
+        [aa]=DataSim(s,Xcoords,Ycoords,d1,spread,type); 
         hold on
         end
     case 2 

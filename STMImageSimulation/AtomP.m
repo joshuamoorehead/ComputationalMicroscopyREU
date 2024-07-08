@@ -25,12 +25,12 @@ switch type
         zint=floor(z);
         d = (z-zint)/sq;
 
-    projX=rho(1)*x+rho(2)*y+rho(3)*z;   %The projected x  
-    projY=-si*x+co*y;                    %The projected y plane
-    c3=cos(a0(3)*pi);
-    s3=sin(a0(3)*pi);
-    u1=c3*projX+s3*projY;
-    v1=-s3*projX+c3*projY;
+        projX=rho(1)*x+rho(2)*y+rho(3)*z;   %The projected x  
+        projY=-si*x+co*y;                    %The projected y plane
+        c3=cos(a0(3)*pi);
+        s3=sin(a0(3)*pi);
+        u1=c3*projX+s3*projY;
+        v1=-s3*projX+c3*projY;
         
     case 2
         xx=ones(2*k+1,1)*[-k/2:0.5:k/2]; 
