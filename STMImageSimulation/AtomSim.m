@@ -1,9 +1,9 @@
 % USER INPUTS
-type = 3;  % choose type 1 - 5 , 1 = simple cubic , 2 = body centered cubic , 3 = face centered cubic , 4 = hexagonal , 5 = ???
+type = 5;  % choose type 1 - 5 , 1 = simple cubic , 2 = body centered cubic , 3 = face centered cubic , 4 = hexagonal , 5 = ???
 numberofimages = 1;  
 patterns = 1;  % 1 for autoencoder training, 2 for training segmentation routines
 
-% PROGRAM 9+type^2
+% PROGRAM 
 res = 256;
 switch type
     case 1 
@@ -15,9 +15,8 @@ switch type
     case 4 
         spread = 14;
     case 5 
-        spread = 0;
+        spread = 10;
 end
-
 switch patterns
     case 1
         for i = 1:numberofimages

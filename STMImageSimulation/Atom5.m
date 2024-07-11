@@ -1,13 +1,8 @@
 res=256;           % size of the image (default 256 x 256)
-type = 2;         % types - 1: simple cubic , 2: body centered cubic , 3: face centered cubic  , 4: hexagonal 
-spread = 9+type^2; % need a new formula
-%spread = 14;
-a1=rand(1,3); a2=rand(1,3);         % coefficients for the patterns. Angles for projection
-type = 4;         % types - 1: simple cubic , 2: body centered cubic , 3: face centered cubic  , 4: hexagonal 
+type = 5;         % types - 1: simple cubic , 2: body centered cubic , 3: face centered cubic  , 4: hexagonal 
 %spread = 9+type^2; % need a new formula
 spread = 14;
-% a1=rand(1,3);
-% a2=rand(1,3);         % coefficients for the patterns. Angles for projection
+a1=rand(1,3); a2=rand(1,3);         % coefficients for the patterns. Angles for projection
 %a1 = [.0617 , .6401 , .9943];
 %a2 = [.0617 , .6401 , .9943];
 

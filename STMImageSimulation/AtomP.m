@@ -130,18 +130,20 @@ switch type
         % Projection of the hexagonal grid
         z = ta * (co * x + si * y);
         %0 = si*x + ta*si*y - z rewritten z plane
-        A = si;
+        A = si; % ta * co
         B = ta*si;
         C = -1;
         normal = [A;B;C];
         % loop through every y value
         % find distance at each 
-      %vert = zeros(num_points^2, 1); 
+        %vert = zeros(num_points^2, 1); 
       for mm=num_points
             for pp=num_points
                 mp=(num_points)*(mm-1)+pp;
 
                 PQ = [0;0;0] - [x(mp);y(mp);floor(z(mp))];
+
+
                 proj = (dot(PQ,normal) / dot(normal,normal)) * normal;
                 d(mp) = norm(proj);
 
@@ -155,6 +157,67 @@ switch type
       v1=-s3*projX+c3*projY;
         end
     case 5 
-        
+% Given parameters
+a = 1.2;  % Base length of the triangle
+co = cos(a0(1) * pi / 3);
+si = sin(a0(1) * pi / 3);
+ta = tan(a0(2) * pi / 6);
+
+
+% Define the number of points in each dimension
+num_points = 2 * k + 1;
+
+% Preallocate arrays for 2D grid points and distance vector
+x = zeros(num_points^2, 1); 
+y = zeros(num_points^2, 1); 
+z = zeros(num_points^2, 1); 
+
+% Generate 2D hexagonal grid points and calculate distances
+vertex_index = 1;
+
+for i = 1:num_points
+    for j = 1:num_points
+        x_offset = (j - 1 - k) * a;
+        y_offset = (i - 1 - k) * a * sqrt(3);
+
+        % Determine the offset based on the row and column parity
+        if mod(i, 2) == 0  % Even row
+            x_offset = x_offset + a / 2;
+        end
+
+        % Calculate the z-coordinate using the plane equation
+        z_offset = ta * (co * x_offset + si * y_offset);
+
+        % Determine the case (i) or (ii) and calculate x_hat
+        if mod(y_offset / (a * sqrt(3)), 1) == 0  % Case (i)
+            x_hat = a * floor(x_offset / a);
+        else  % Case (ii)
+            x_hat = a * (0.5 + floor(x_offset / a - 0.5));
+        end
+
+        % Calculate the distance d to the tilted plane
+        d(vertex_index) = (x_offset - x_hat) * ta;
+
+        % Calculate the coordinates of the projection
+        x_bar = x_hat + d(vertex_index) * ta;
+        y_bar = y_offset;
+        z_bar = z_offset - d(vertex_index) * ta;
+
+
+        % Store the vertex coordinates
+        x(vertex_index) = x_offset;
+        y(vertex_index) = y_offset;
+        z(vertex_index) = z_offset;
+
+        vertex_index = vertex_index + 1;
+    end
+end
+% Find the minimum distance nodes
+projX=rho(1)*x+rho(2)*y+rho(3)*z;   %The projected x  
+projY=-si*x+co*y;                    %The projected y plane
+c3=cos(a0(3)*pi);
+s3=sin(a0(3)*pi);
+u1=c3*projX+s3*projY;
+v1=-s3*projX+c3*projY;       
 end
 return

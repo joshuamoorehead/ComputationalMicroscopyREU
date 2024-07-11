@@ -4,7 +4,13 @@ res=256;
 n=res+sp*4; 
 k=n+2*sp;
 dd=2;
-cc=0.37;      %Gaussian Parameter (Default 0.15)
+
+switch type
+    case {1,2,3,4}
+        cc = 0.13;
+    case 5
+        cc=0.015;      %Gaussian Parameter (Default 0.15 for 1-4, ~0.015 for type 5)
+end
 sz=sp^2/64/type;
 brt1b=0.7;    %threshhold value of curent background for including an atom
 
@@ -70,7 +76,8 @@ end
 %        nam=[fname,num2str(num),'clear.png'];
 %        imwrite(aa,nam)
     
-        %figure(11); imagesc(P0F); colormap(gray); axis off; colorbar
+        figure(11); imagesc(P0F); colormap(gray); axis off; colorbar
+        title('Without Noise')
         % nam=[fname,num2str(num),'clear.png'];
         % saveas(gcf,nam)
      P7=P0F;
@@ -109,6 +116,7 @@ end
         PF=P+GaussN+PoissonN+striN;%                                  % Image with all added noises
         P0F=PF([k/2-res/2:k/2+res/2],[k/2-res/2:k/2+res/2]);
      figure(); imagesc(P0F); colormap(gray); axis off; colorbar; clim([0 aamax])
+        title('With Noise')
         aamin=min(P0F(:)); aamax=max(P0F(:)); 
         aa=(P0F-aamin)/(aamax-aamin);
 %        nam=[fname,num2str(num),'noise.png'];
